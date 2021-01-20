@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: consumer-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
+server:
+  port: 8000
+
+
+ribbon:  #配置负载均衡的策略，这个是openfeign提供的
+    MaxAutoRetries: 0 # 同一实例最大重试次数，不包括首次调用，默认0
+    MaxAutoRetriesNextServer: 0 # 重试其他实例的最大重试次数，不包括首次所选的server，默认1
+    ConnectTimeout: 1000   #设置尝试连接的时间，超时就判定本次连接失败
+    ReadTimeout: 1000   #等待调用服务的返回值时间，如果这个被调用的服务超时还没有返回数据，就判定连接失败，重新连接
+feign:
+  hystrix:
+    enabled: true
